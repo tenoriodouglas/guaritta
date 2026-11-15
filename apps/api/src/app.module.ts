@@ -12,6 +12,7 @@ import { AuthModule } from './modules/auth/auth.module.js';
 import { DeliveriesModule } from './modules/deliveries/deliveries.module.js';
 import { GatesModule } from './modules/gates/gates.module.js';
 import { HealthModule } from './modules/health/health.module.js';
+import { NotificationsModule } from './modules/notifications/notifications.module.js';
 import { ResidentsModule } from './modules/residents/residents.module.js';
 import { UnitsModule } from './modules/units/units.module.js';
 import { UsersModule } from './modules/users/users.module.js';
@@ -35,6 +36,7 @@ import { VisitorsModule } from './modules/visitors/visitors.module.js';
     DeliveriesModule,
     GatesModule,
     AccessModule,
+    NotificationsModule,
   ],
   providers: [
     { provide: APP_FILTER, useClass: DatabaseExceptionFilter },
