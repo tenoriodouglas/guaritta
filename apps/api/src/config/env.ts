@@ -1,4 +1,4 @@
-import { plainToInstance } from 'class-transformer';
+import { plainToInstance, Type } from 'class-transformer';
 import {
   IsEnum,
   IsInt,
@@ -26,6 +26,7 @@ export class Env {
   @IsEnum(NodeEnv)
   NODE_ENV: NodeEnv = NodeEnv.Development;
 
+  @Type(() => Number)
   @IsInt()
   PORT = 3000;
 
@@ -46,11 +47,13 @@ export class Env {
   @IsString()
   ALPR_API_TOKEN?: string;
 
+  @Type(() => Number)
   @IsNumber()
   @Min(0)
   @Max(1)
   ALPR_MIN_CONFIDENCE = 0.8;
 
+  @Type(() => Number)
   @IsInt()
   @Min(10)
   ACCESS_REQUEST_TTL_SECONDS = 120;
@@ -58,7 +61,7 @@ export class Env {
 
 // Fails fast on boot when required variables are missing or malformed.
 export function validateEnv(raw: Record<string, unknown>): Env {
-  const env = plainToInstance(Env, raw, { enableImplicitConversion: true });
+  const env = plainToInstance(Env, raw);
   const errors = validateSync(env, { skipMissingProperties: false });
   if (errors.length > 0) {
     const details = errors.map((e) => Object.values(e.constraints ?? {}).join(', ')).join('; ');

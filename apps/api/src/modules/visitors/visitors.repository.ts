@@ -57,6 +57,17 @@ export class VisitorsRepository {
     return visitor;
   }
 
+  /** Visitor currently inside with the given plate (exit matching). */
+  async findInsideByPlateKey(plateKey: string): Promise<Visitor | undefined> {
+    const [visitor] = await this.db
+      .select()
+      .from(visitors)
+      .where(and(eq(visitors.plateKey, plateKey), eq(visitors.status, 'INSIDE')))
+      .orderBy(desc(visitors.enteredAt))
+      .limit(1);
+    return visitor;
+  }
+
   /** Atomic status change; returns undefined if the current status no longer matches. */
   async transition(
     id: string,
