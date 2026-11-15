@@ -9,6 +9,24 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U guaritta"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: ./apps/api
+    profiles: ["full"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://guaritta:guaritta@postgres:5432/guaritta
+      JWT_SECRET: ${JWT_SECRET:-change-me-with-at-least-32-characters!!}
+      ALPR_PROVIDER: ${ALPR_PROVIDER:-none}
+      ALPR_API_TOKEN: ${ALPR_API_TOKEN:-}
+    ports:
+      - "3000:3000"
 
 volumes:
   pgdata:
