@@ -17,6 +17,13 @@ Cada módulo segue a mesma organização:
 - `*.controller.ts` — endpoints HTTP, autorização por perfil.
 - Regras de domínio puras (ex.: `decision-engine.ts`, `visit-lifecycle.ts`) isoladas e testadas sem banco.
 
+## Console da portaria (`apps/console`)
+
+- React 19 + Vite, estado de servidor com TanStack Query.
+- SSE autenticado via `fetch` (EventSource não envia headers), com reconexão exponencial; cada evento invalida as consultas de acesso.
+- Alerta sonoro sintetizado (Web Audio), notificação do navegador e contador na aba para novas solicitações.
+- Liberação de visitantes passa pelo fluxo auditado de liberação manual.
+
 ## Decisões
 
 - **Drizzle ORM**: schema em TypeScript, migrações SQL versionadas, sem binários nativos.
@@ -28,9 +35,8 @@ Cada módulo segue a mesma organização:
 
 ## Próximos passos
 
-1. App mobile (morador e porteiro) consumindo os streams SSE.
-2. Console web da portaria.
-3. Multi-condomínio (tenant por condomínio).
-4. Push notifications (FCM/APNs) e WhatsApp.
-5. Reconhecimento facial para catracas de pedestres.
-6. Armazenamento de snapshots das câmeras (S3 compatível).
+1. App mobile do morador consumindo o stream de notificações.
+2. Multi-condomínio (tenant por condomínio).
+3. Push notifications (FCM/APNs) e WhatsApp.
+4. Reconhecimento facial para catracas de pedestres.
+5. Armazenamento de snapshots das câmeras (S3 compatível).

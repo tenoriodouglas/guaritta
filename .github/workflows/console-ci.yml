@@ -1,0 +1,30 @@
+name: Console CI
+
+on:
+  push:
+    branches: [main]
+    paths: ['apps/console/**', '.github/workflows/console-ci.yml']
+  pull_request:
+    paths: ['apps/console/**', '.github/workflows/console-ci.yml']
+
+concurrency:
+  group: console-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/console
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/console/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build

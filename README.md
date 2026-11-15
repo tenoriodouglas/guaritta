@@ -17,10 +17,13 @@ Plataforma de gestão de portaria para condomínios: cadastro de unidades, morad
 | **Tempo real** | Stream SSE para o console da portaria e para o app do morador |
 | **Notificações** | Encomenda recebida, visitante chegou, veículo entrou, acesso negado |
 | **Indicadores** | Resumo diário de acessos por status e tipo |
+| **Console da portaria** | Fila ao vivo com contagem regressiva, alerta sonoro e notificação do navegador, liberar/negar com observação, liberação manual, visitantes, encomendas, consulta e bloqueio de veículos |
 
 ## Stack
 
-NestJS 12 (ESM) · TypeScript · PostgreSQL 16 · Drizzle ORM · Vitest · oxlint · Swagger/OpenAPI · Docker · GitHub Actions
+**API:** NestJS 12 (ESM) · TypeScript · PostgreSQL 16 · Drizzle ORM · Vitest · oxlint · Swagger/OpenAPI · Docker · GitHub Actions
+
+**Console:** React 19 · Vite 8 · Tailwind CSS 4 · TanStack Query · Vitest
 
 ## Estrutura
 
@@ -34,6 +37,7 @@ apps/
       database/   # Schema Drizzle, migração e seed
       modules/    # Um módulo por contexto de negócio
     test/         # Testes e2e com PostgreSQL
+  console/        # Console web da portaria (React)
   mobile/         # App (a definir)
 docs/             # Arquitetura e fluxo de acesso
 ```
@@ -52,6 +56,14 @@ npm run start:dev
 
 - API: `http://localhost:3000/api`
 - Documentação interativa (Swagger): `http://localhost:3000/api/docs`
+
+Console da portaria (com a API rodando):
+
+```bash
+cd apps/console && npm ci && npm run dev   # http://localhost:5173
+```
+
+![Console da portaria](docs/console-acessos.png)
 
 Stack completa via Docker: `docker compose --profile full up --build`.
 
