@@ -7,7 +7,10 @@ import { validateEnv } from './config/env.js';
 import { DatabaseModule } from './database/database.module.js';
 import { AuthModule } from './modules/auth/auth.module.js';
 import { HealthModule } from './modules/health/health.module.js';
+import { ResidentsModule } from './modules/residents/residents.module.js';
+import { UnitsModule } from './modules/units/units.module.js';
 import { UsersModule } from './modules/users/users.module.js';
+import { VehiclesModule } from './modules/vehicles/vehicles.module.js';
 
 @Module({
   imports: [
@@ -17,6 +20,9 @@ import { UsersModule } from './modules/users/users.module.js';
     AuthModule,
     HealthModule,
     UsersModule,
+    UnitsModule,
+    ResidentsModule,
+    VehiclesModule,
   ],
   providers: [
     { provide: APP_FILTER, useClass: DatabaseExceptionFilter },
